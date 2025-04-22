@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import ButtonApp from '../components/ButtonApp';
 import globalStyles from '../styles/globalStyles';
 import { useAuth } from '../context/AuthContext';
+import FloatingMenu from "../components/FloatingMenu";
 
 const HomeScreen = ({ navigation }: any) => {
     const { logout } = useAuth();
@@ -19,6 +20,8 @@ const HomeScreen = ({ navigation }: any) => {
                 fields: [],
             })} />
             <ButtonApp title="Cerrar sesión" onPress={logout} />
+
+            <FloatingMenu/>
         </View>
     );
 };

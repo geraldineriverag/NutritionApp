@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
-import { fetchSubmittedData } from '../services/WizardService'; // función que ahora vamos a crear
+import {View, Text, ScrollView, ActivityIndicator} from 'react-native';
+import { fetchSubmittedData } from '../services/WizardService';
 import globalStyles from '../styles/globalStyles';
+import cardStyles from '../styles/cardStyles'; //
+import FloatingMenu from "../components/FloatingMenu";
 
 const SuccessScreen = () => {
     const [formData, setFormData] = useState<Record<string, any> | null>(null);
     const [loading, setLoading] = useState(true);
 
+
     useEffect(() => {
         const loadData = async () => {
             try {
-                const data = await fetchSubmittedData(); // hacemos GET de lo enviado
+                const data = await fetchSubmittedData();
                 setFormData(data);
             } catch (error) {
                 console.error("Error al cargar los datos:", error);
@@ -23,29 +26,46 @@ const SuccessScreen = () => {
     }, []);
 
     if (loading) {
-        return <ActivityIndicator size="large" style={{ flex: 1 }} />;
+        return (
+            <View style={[globalStyles.container, cardStyles.centered]}>
+                <ActivityIndicator size="large" />
+            </View>
+        );
     }
 
     if (!formData) {
         return (
-            <View style={globalStyles.container}>
+            <View style={[globalStyles.container, cardStyles.centered]}>
                 <Text>Error cargando datos.</Text>
             </View>
         );
     }
 
-    //Revisar ScrollView, hay una opción que es para listas y permite un mejor renderizado.
     return (
-        <ScrollView contentContainerStyle={globalStyles.container}>
-            <Text style={globalStyles.title}>¡Formulario enviado exitosamente!</Text>
-            {Object.entries(formData).map(([key, value]) => (
-                <View key={key} style={{ marginBottom: 10 }}>
-                    <Text style={{ fontWeight: 'bold' }}>{key}:</Text>
-                    <Text>{String(value)}</Text>
+        <View style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1 }}>
+                <View style={[globalStyles.container, cardStyles.content]}>
+                    <Text style={[globalStyles.title, cardStyles.title]}>
+                        ¡Formulario enviado exitosamente!
+                    </Text>
+
+                    {Object.entries(formData).map(([key, value]) => (
+                        <View key={key} style={cardStyles.card}>
+                            <Text style={cardStyles.cardTitle}>{key}</Text>
+                            <Text style={cardStyles.cardValue}>{String(value)}</Text>
+                        </View>
+                    ))}
                 </View>
-            ))}
-        </ScrollView>
+            </ScrollView>
+
+            <FloatingMenu />
+
+        </View>
     );
 };
 
 export default SuccessScreen;
+
+
+
+
