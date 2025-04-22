@@ -3,6 +3,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import StepScreen from "../screens/StepScreen";
+import SuccessScreen from "../screens/SuccessScreen";
 
 export type AppStackParamList = {
     Home: undefined;
@@ -16,6 +17,7 @@ export type AppStackParamList = {
             keyboardType?: 'default' | 'numeric' | 'email-address';
         }[];
     };
+    Success: undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -31,6 +33,7 @@ const AppNavigator = () => {
                     title: route.params?.title || 'Formulario' // Usamos el título del paso o 'Paso' como fallback
                 })}
             />
+            <Stack.Screen name={"Success"} component={SuccessScreen}/>
         </Stack.Navigator>
     );
 };

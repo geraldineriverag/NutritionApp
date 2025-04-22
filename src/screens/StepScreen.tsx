@@ -6,8 +6,7 @@ import ButtonApp from '../components/ButtonApp';
 import globalStyles from '../styles/globalStyles';
 import { useWizardForm } from '../context/WizardFormContext';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/AuthNavigator';
-import {fetchFields, postFormData} from "../services/WizardService";
+import {fetchFields, fetchSubmittedData, postFormData} from "../services/WizardService";
 import {AppStackParamList} from "../navigation/AppNavigator";
 
 type StepScreenProps = NativeStackScreenProps<AppStackParamList, 'Step'>;
@@ -46,11 +45,29 @@ const StepScreen: React.FC<StepScreenProps> = ({ navigation, route }) => {
     };
 
     useEffect(() => {
-        if (wizardSteps.length === 0) {
-            getFields();
-        } else {
-            setLoading(false);
-        }
+        const init = async () => {
+            try {
+                // 1️⃣ Comprobar en backend si ya existe perfil de paciente
+                await fetchSubmittedData();
+                // Si no lanza error, significa que sí existe → redirigir
+                navigation.replace('Success');
+                return;
+            } catch (error: any) {
+                // Si la respuesta fue 404 (no existe), seguimos al formulario
+                if (error.response?.status !== 404) {
+                    console.error('Error comprobando perfil de paciente:', error);
+                    // Opcional: podrías mostrar un Alert aquí si quieres
+                }
+            }
+
+            // 2️⃣ Si no existía perfil, cargamos los pasos del wizard
+            if (wizardSteps.length === 0) {
+                await getFields();
+            } else {
+                setLoading(false);
+            }
+        };
+        init();
     }, []);
 
     const handleNextStep = async () => {
@@ -76,9 +93,8 @@ const StepScreen: React.FC<StepScreenProps> = ({ navigation, route }) => {
             try {
                 // 🚀 POST de la data
                 await postFormData(data);
-
                 // ✅ Si todo sale bien
-                navigation.navigate('Home');
+                navigation.navigate('Success');
             } catch (error) {
                 console.error('Error al enviar datos:', error);
                 Alert.alert('Error', 'No se pudo enviar el formulario.');
@@ -87,7 +103,7 @@ const StepScreen: React.FC<StepScreenProps> = ({ navigation, route }) => {
     };
 
     if (loading) {
-        return null; // loader opcional
+        return null;
     }
 
     const currentStep = wizardSteps[stepIndex];

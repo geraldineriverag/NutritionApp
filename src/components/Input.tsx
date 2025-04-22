@@ -10,6 +10,7 @@ type Props = {
     secureTextEntry?: boolean;
     keyboardType?: TextInputProps['keyboardType'];
     placeholder?: string;
+    editable?: boolean; // <-- NUEVA PROP
 };
 
 const Input: React.FC<Props> = ({
@@ -19,6 +20,7 @@ const Input: React.FC<Props> = ({
                                     secureTextEntry = false,
                                     keyboardType = 'default',
                                     placeholder = '',
+                                    editable = true, // <-- DEFAULT TRUE
                                 }) => {
     return (
         <View style={styles.container}>
@@ -32,6 +34,7 @@ const Input: React.FC<Props> = ({
                 placeholder={placeholder}
                 placeholderTextColor={colors.textSecondary}
                 autoCapitalize="none"
+                editable={editable}
             />
         </View>
     );
