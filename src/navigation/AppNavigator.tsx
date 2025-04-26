@@ -5,10 +5,10 @@ import HomeScreen from '../screens/HomeScreen';
 import StepScreen from "../screens/StepScreen";
 import SuccessScreen from "../screens/SuccessScreen";
 import ProgressScreen from "../screens/ProgressScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 export type AppStackParamList = {
     Home: undefined;
-    Profile: undefined; // si tienes una pantalla de perfil
     Step: {
         title: string;
         stepIndex: number;
@@ -20,6 +20,7 @@ export type AppStackParamList = {
     };
     Success: undefined;
     Progress: undefined;
+    Profile: undefined
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -37,6 +38,7 @@ const AppNavigator = () => {
             />
             <Stack.Screen name={"Success"} component={SuccessScreen}/>
             <Stack.Screen name={"Progress"} component={ProgressScreen}/>
+            <Stack.Screen name={"Profile"} component={ProfileScreen}/>
         </Stack.Navigator>
     );
 };
