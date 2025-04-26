@@ -11,7 +11,7 @@ const HomeScreen = ({ navigation }: any) => {
     return (
         <View style={globalStyles.container}>
             <Text style={globalStyles.title}>Bienvenido a tu Panel</Text>
-            <Text style={globalStyles.subtitle}>Aquí podrás ver todas tus actividades y progreso.</Text>
+            <Text style={globalStyles.text}>Aquí podrás ver todas tus actividades y progreso.</Text>
 
             <ButtonApp title="Ir al perfil" onPress={() => navigation.navigate('Profile')} />
             <ButtonApp title="Mis datos" onPress={() => navigation.navigate('Step', {
@@ -19,6 +19,7 @@ const HomeScreen = ({ navigation }: any) => {
                 stepIndex: 0,
                 fields: [],
             })} />
+            <ButtonApp title="Progreso" onPress={() => navigation.navigate('Progress')} />
             <ButtonApp title="Cerrar sesión" onPress={logout} />
 
             <FloatingMenu/>

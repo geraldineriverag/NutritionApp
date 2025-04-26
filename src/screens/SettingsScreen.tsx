@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import colors from "../styles/colors";
 import FloatingMenu from "../components/FloatingMenu";
 
 const SettingsScreen = () => {

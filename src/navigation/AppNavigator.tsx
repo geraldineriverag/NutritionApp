@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import StepScreen from "../screens/StepScreen";
 import SuccessScreen from "../screens/SuccessScreen";
+import ProgressScreen from "../screens/ProgressScreen";
 
 export type AppStackParamList = {
     Home: undefined;
@@ -18,6 +19,7 @@ export type AppStackParamList = {
         }[];
     };
     Success: undefined;
+    Progress: undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -34,6 +36,7 @@ const AppNavigator = () => {
                 })}
             />
             <Stack.Screen name={"Success"} component={SuccessScreen}/>
+            <Stack.Screen name={"Progress"} component={ProgressScreen}/>
         </Stack.Navigator>
     );
 };
