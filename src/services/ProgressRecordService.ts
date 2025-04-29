@@ -8,14 +8,13 @@ interface ProgressData {
 }
 
 // Obtener todos los progresos del usuario autenticado
-export const fetchProgressData = async () => {
-    try {
-        const response = await apiClient.get('/progress/');
-        return response.data;
-    } catch (error: any) {
-        console.error('Error al obtener los progresos:', error);
-        throw error;
-    }
+export const fetchProgressData = async (startDate?: string, endDate?: string) => {
+    const params: any = {};
+    if (startDate) params.start_date = startDate;
+    if (endDate) params.end_date = endDate;
+
+    const response = await apiClient.get('/progress/', { params });
+    return response.data;
 };
 
 // Registrar un nuevo progreso (puedes pasar los campos que necesites)

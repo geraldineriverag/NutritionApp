@@ -6,6 +6,7 @@ import StepScreen from "../screens/StepScreen";
 import SuccessScreen from "../screens/SuccessScreen";
 import ProgressScreen from "../screens/ProgressScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import ProgressDetailScreen from "../screens/ProgressDetailScreen";
 
 export type AppStackParamList = {
     Home: undefined;
@@ -20,6 +21,7 @@ export type AppStackParamList = {
     };
     Success: undefined;
     Progress: undefined;
+    ProgressDetail: undefined;
     Profile: undefined
 };
 
@@ -39,6 +41,7 @@ const AppNavigator = () => {
             <Stack.Screen name={"Success"} component={SuccessScreen}/>
             <Stack.Screen name={"Progress"} component={ProgressScreen}/>
             <Stack.Screen name={"Profile"} component={ProfileScreen}/>
+            <Stack.Screen name={"ProgressDetail"} component={ProgressDetailScreen}/>
         </Stack.Navigator>
     );
 };

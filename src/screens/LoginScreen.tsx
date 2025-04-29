@@ -22,7 +22,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     const handleLogin = async () => {
         try {
             const { access, refresh } = await loginRequest(form.username, form.password);
-            await login(access, refresh); // El hook de login que ya tienes
+            await login(access, refresh);
         } catch (error: any) {
             Alert.alert("Error", error.message);
         }

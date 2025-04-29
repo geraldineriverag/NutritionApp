@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native';
-import { fetchProgressData, registerProgress } from '../services/ProgressRecordService';
+import { View, Text, ActivityIndicator, FlatList } from 'react-native';
 import globalStyles from '../styles/globalStyles';
 import cardStyles from '../styles/cardStyles';
-import RegisterProgressModal from '../components/RegisterProgressModal';
 import ProgressCard from '../components/ProgressCard';
 import ProgressChart from '../components/ProgressChart';
+import RegisterProgressModal from '../components/RegisterProgressModal';
+import FloatingMenu from '../components/FloatingMenu';
+import ButtonApp from '../components/ButtonApp';
 import { getPatientId } from '../services/PatientService';
-import FloatingMenu from "../components/FloatingMenu";
-import ButtonApp from "../components/ButtonApp"; // Asegúrate de importar esto
+import { registerProgress } from '../services/ProgressRecordService';
+import { useProgressData } from '../hooks/useProgressData';
+import RangeFilter from "../components/RangeFilter";
 
 const ProgressScreen = () => {
-    const [progressData, setProgressData] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+    const { progressData, loading, loadProgressData } = useProgressData();
     const [modalVisible, setModalVisible] = useState(false);
     const [formData, setFormData] = useState({
         weight: '',
@@ -20,19 +21,11 @@ const ProgressScreen = () => {
         hip_circumference: '',
     });
     const [submitting, setSubmitting] = useState(false);
+    const [startDate, setStartDate] = useState<string | null>(null);
+    const [endDate, setEndDate] = useState<string | null>(null);
 
     useEffect(() => {
-        const loadData = async () => {
-            try {
-                const data = await fetchProgressData();
-                setProgressData(data);
-            } catch (error) {
-                console.error('Error al cargar los progresos:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadData();
+        loadProgressData();
     }, []);
 
     const handleChange = (key: keyof typeof formData, value: string) => {
@@ -49,8 +42,7 @@ const ProgressScreen = () => {
                 waist_circumference: parseFloat(formData.waist_circumference),
                 hip_circumference: parseFloat(formData.hip_circumference),
             });
-            const updatedData = await fetchProgressData();
-            setProgressData(updatedData);
+            await loadProgressData(startDate || undefined, endDate || undefined);
             setModalVisible(false);
             setFormData({ weight: '', waist_circumference: '', hip_circumference: '' });
         } catch (error) {
@@ -76,7 +68,21 @@ const ProgressScreen = () => {
                 renderItem={({ item }) => <ProgressCard item={item} />}
                 ListHeaderComponent={
                     <>
-                        <Text style={[globalStyles.title]}>Mis Progresos</Text>
+                        <Text style={globalStyles.title}>Mis Progresos</Text>
+                        <RangeFilter
+                            startDate={startDate}
+                            endDate={endDate}
+                            onChangeStartDate={setStartDate}
+                            onChangeEndDate={setEndDate}
+                            onApply={() => loadProgressData(startDate || undefined, endDate || undefined)}
+                            onClear={() => {
+                                setStartDate(null);
+                                setEndDate(null);
+                                loadProgressData();
+                            }}
+                            title="Filtrar Progresos"
+                            showSummary={true}
+                        />
                         <ButtonApp title="Registrar Nuevo Progreso" onPress={() => setModalVisible(true)} />
                         <ProgressChart progressData={progressData} />
                     </>
@@ -92,7 +98,7 @@ const ProgressScreen = () => {
                 submitting={submitting}
             />
 
-            <FloatingMenu/>
+            <FloatingMenu />
         </View>
     );
 };
