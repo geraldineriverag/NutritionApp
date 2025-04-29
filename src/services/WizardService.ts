@@ -25,4 +25,10 @@ export const fetchSubmittedData = async () => {
     return data;
 };
 
+export const updateWizardField = async (field: string, value: string) => {
+    const data = { [field]: value };
+    const response = await apiClient.patch('/patients/me/', data); // Asegúrate de tener este endpoint en tu backend
+    return response.data;
+};
+
 
