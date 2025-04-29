@@ -12,9 +12,7 @@ const ProfileScreen = () => {
     const [selectedField, setSelectedField] = useState<keyof UserProfile | null>(null);
     const [inputValue, setInputValue] = useState('');
 
-    useEffect(() => {
-        fetchProfile();
-    }, []);
+    useEffect(() => { fetchProfile(); }, []);
 
     const fetchProfile = async () => {
         try {
