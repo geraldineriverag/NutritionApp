@@ -21,12 +21,13 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
     const handleLogin = async () => {
         try {
-            const { access, refresh } = await loginRequest(form.username, form.password);
-            await login(access, refresh);
-        } catch (error: any) {
-            Alert.alert("Error", error.message);
+            const { access, refresh, role } = await loginRequest(form.username, form.password);
+            await login(access, refresh, role);
+        } catch (e: any) {
+            Alert.alert('Error', e.message);
         }
     };
+
 
     const handleRegisterNavigation = () => {
         navigation.navigate('SignUp')

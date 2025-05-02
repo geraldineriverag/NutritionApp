@@ -42,6 +42,7 @@ export const loginRequest = async (username: string, password: string) => {
         return {
             access: data.access,
             refresh: data.refresh,
+            role: data.role as 'paciente' | 'nutricionista',
         };
     } catch (error: any) {
         console.error("Login error:", error.response?.data || error.message);
