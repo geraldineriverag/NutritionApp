@@ -48,7 +48,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     };
 
     const logout = async () => {
-        // Limpiamos todo
         await AsyncStorage.multiRemove([
             'access_token',
             'refresh_token',

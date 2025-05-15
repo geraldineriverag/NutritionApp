@@ -1,12 +1,12 @@
-// src/navigation/AppNavigator.tsx
+// src/navigation/PatientNavigator.tsx
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../screens/HomeScreen';
-import StepScreen from "../screens/StepScreen";
-import SuccessScreen from "../screens/SuccessScreen";
-import ProgressScreen from "../screens/ProgressScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import ProgressDetailScreen from "../screens/ProgressDetailScreen";
+import HomeScreen from '../screens/PatientScreens/HomeScreen';
+import StepScreen from "../screens/PatientScreens/StepScreen";
+import SuccessScreen from "../screens/PatientScreens/SuccessScreen";
+import ProgressScreen from "../screens/PatientScreens/ProgressScreen";
+import ProfileScreen from "../screens/PatientScreens/ProfileScreen";
+import ProgressDetailScreen from "../screens/PatientScreens/ProgressDetailScreen";
 
 export type AppStackParamList = {
     Home: undefined;
@@ -27,7 +27,7 @@ export type AppStackParamList = {
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
-const AppNavigator = () => {
+const PatientNavigator = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeScreen} />
@@ -46,5 +46,5 @@ const AppNavigator = () => {
     );
 };
 
-export default AppNavigator;
+export default PatientNavigator;
 

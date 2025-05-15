@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { View, Text, ScrollView, ActivityIndicator, Modal, TextInput, TouchableOpacity } from 'react-native';
-import { fetchSubmittedData, updateWizardField } from '../services/WizardService';
-import globalStyles from '../styles/globalStyles';
-import cardStyles from '../styles/cardStyles';
-import FloatingMenu from "../components/FloatingMenu";
-import ButtonApp from "../components/ButtonApp";
-import { submittedFields} from "../constants/SubmittedFields";
+import { fetchSubmittedData, updateWizardField } from '../../services/WizardService';
+import globalStyles from '../../styles/globalStyles';
+import cardStyles from '../../styles/cardStyles';
+import FloatingMenu from "../../components/FloatingMenu";
+import ButtonApp from "../../components/ButtonApp";
+import { submittedFields} from "../../constants/SubmittedFields";
 
 const SuccessScreen = () => {
     const [formData, setFormData] = useState<Record<string, any> | null>(null);

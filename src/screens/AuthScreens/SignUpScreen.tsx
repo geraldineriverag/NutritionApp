@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { View, KeyboardAvoidingView, Platform, Alert, Text, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import {RootStackParamList} from "../navigation/AuthNavigator";
-import { signUpFields, roleOptions } from '../constants/SignUpFields';
-import { registerUser } from '../services/AuthService';
-import Input from '../components/Input';
-import ButtonApp from '../components/ButtonApp';
-import ModalSelector from "../components/ModalSelector";
-import globalStyles from '../styles/globalStyles';
+import {RootStackParamList} from "../../navigation/AuthNavigator";
+import { signUpFields, roleOptions } from '../../constants/SignUpFields';
+import { registerUser } from '../../services/AuthService';
+import Input from '../../components/Input';
+import ButtonApp from '../../components/ButtonApp';
+import ModalSelector from "../../components/ModalSelector";
+import globalStyles from '../../styles/globalStyles';
 import { ScrollView } from 'react-native';
-import DateInput from '../components/DateInput';
+import DateInput from '../../components/DateInput';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import globalStyles from '../styles/globalStyles';
-import cardStyles from '../styles/cardStyles';
-import { progressFields } from '../constants/progressFields';
+import globalStyles from '../../styles/globalStyles';
+import cardStyles from '../../styles/cardStyles';
+import { progressFields } from '../../constants/progressFields';
 
 const ProgressDetailScreen = () => {
     const route = useRoute();

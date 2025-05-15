@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Modal, TextInput, TouchableOpacity } from 'react-native';
-import { getProfile, updateProfileField} from "../services/UserService";
-import globalStyles from '../styles/globalStyles';
-import {UserProfile} from "../types/UserProfile";
-import {profileFields} from "../constants/ProfileFields";
-import ButtonApp from '../components/ButtonApp';
+import { getProfile, updateProfileField} from "../../services/UserService";
+import globalStyles from '../../styles/globalStyles';
+import {UserProfile} from "../../types/UserProfile";
+import {profileFields} from "../../constants/ProfileFields";
+import ButtonApp from '../../components/ButtonApp';
 
 const ProfileScreen = () => {
     const [profile, setProfile] = useState<UserProfile | null>(null);

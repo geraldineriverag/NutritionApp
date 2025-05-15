@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Text, ActivityIndicator, Image } from 'react-native';
-import { useAuth } from '../context/AuthContext';
-import FloatingMenu from '../components/FloatingMenu';
-import HeaderWithLogout from '../components/HeaderWithLogout';
-import PlanCard from '../components/PlanCard';
-import DaySelector from '../components/DaySelector';
-import globalStyles from '../styles/globalStyles';
-import styles from '../styles/homeStyles';
-import colors from '../styles/colors';
-import {getProfile} from "../services/UserService";
+import { useAuth } from '../../context/AuthContext';
+import FloatingMenu from '../../components/FloatingMenu';
+import HeaderWithLogout from '../../components/HeaderWithLogout';
+import PlanCard from '../../components/PlanCard';
+import DaySelector from '../../components/DaySelector';
+import globalStyles from '../../styles/globalStyles';
+import styles from '../../styles/homeStyles';
+import colors from '../../styles/colors';
+import {getProfile} from "../../services/UserService";
 
 const todayIndex = new Date().getDay();
 

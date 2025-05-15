@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, FlatList } from 'react-native';
-import globalStyles from '../styles/globalStyles';
-import cardStyles from '../styles/cardStyles';
-import ProgressCard from '../components/ProgressCard';
-import ProgressChart from '../components/ProgressChart';
-import RegisterProgressModal from '../components/RegisterProgressModal';
-import FloatingMenu from '../components/FloatingMenu';
-import ButtonApp from '../components/ButtonApp';
-import { getPatientId } from '../services/PatientService';
-import { registerProgress } from '../services/ProgressRecordService';
-import { useProgressData } from '../hooks/useProgressData';
-import RangeFilter from "../components/RangeFilter";
+import globalStyles from '../../styles/globalStyles';
+import cardStyles from '../../styles/cardStyles';
+import ProgressCard from '../../components/ProgressCard';
+import ProgressChart from '../../components/ProgressChart';
+import RegisterProgressModal from '../../components/RegisterProgressModal';
+import FloatingMenu from '../../components/FloatingMenu';
+import ButtonApp from '../../components/ButtonApp';
+import { getPatientId } from '../../services/PatientService';
+import { registerProgress } from '../../services/ProgressRecordService';
+import { useProgressData } from '../../hooks/useProgressData';
+import RangeFilter from "../../components/RangeFilter";
 
 const ProgressScreen = () => {
     const { progressData, loading, loadProgressData } = useProgressData();

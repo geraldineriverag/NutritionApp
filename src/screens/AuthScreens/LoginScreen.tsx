@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Text, Alert, KeyboardAvoidingView, Platform } from 'react-native';
-import Input from "../components/Input";
-import ButtonApp from "../components/ButtonApp";
-import globalStyles from "../styles/globalStyles";
-import { loginFields } from "../constants/loginFields";
-import { useAuth } from '../context/AuthContext';
+import Input from "../../components/Input";
+import ButtonApp from "../../components/ButtonApp";
+import globalStyles from "../../styles/globalStyles";
+import { loginFields } from "../../constants/loginFields";
+import { useAuth } from '../../context/AuthContext';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/AuthNavigator';
-import {loginRequest} from "../services/AuthService";
+import { RootStackParamList } from '../../navigation/AuthNavigator';
+import {loginRequest} from "../../services/AuthService";
 
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
 

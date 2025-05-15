@@ -1,31 +1,54 @@
 import React, { useState } from 'react';
-import { View, Text, Modal, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import {
+    View,
+    Text,
+    Modal,
+    TouchableOpacity,
+    FlatList,
+    StyleSheet,
+} from 'react-native';
+
+interface Option {
+    label: string;
+    value: string;
+}
 
 interface ModalSelectProps {
     label: string;
-    options: { label: string; value: string }[];
+    options: Option[];
     value: string;
     onValueChange: (value: string) => void;
 }
 
-const ModalSelect: React.FC<ModalSelectProps> = ({ label, options, value, onValueChange }) => {
+const ModalSelect: React.FC<ModalSelectProps> = ({
+                                                     label,
+                                                     options,
+                                                     value,
+                                                     onValueChange,
+                                                 }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
-    const handleSelect = (item: { label: string; value: string }) => {
-        onValueChange(item.value); // Pass selected value to the parent
-        setModalVisible(false); // Close modal after selection
+    const handleSelect = (item: Option) => {
+        onValueChange(item.value);
+        setModalVisible(false);
     };
+
+    const selectedLabel =
+        options.find(option => option.value === value)?.label || 'Selecciona...';
 
     return (
         <View style={{ marginBottom: 20 }}>
-            <Text style={{ marginBottom: 5, fontWeight: 'bold' }}>{label}</Text>
-            <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.inputContainer}>
-                <Text style={styles.selectedText}>{value || 'Selecciona...'}</Text>
+            <Text style={styles.label}>{label}</Text>
+            <TouchableOpacity
+                onPress={() => setModalVisible(true)}
+                style={styles.inputContainer}
+            >
+                <Text style={styles.selectedText}>{selectedLabel}</Text>
             </TouchableOpacity>
 
             <Modal
                 animationType="slide"
-                transparent={true}
+                transparent
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(false)}
             >
@@ -33,12 +56,15 @@ const ModalSelect: React.FC<ModalSelectProps> = ({ label, options, value, onValu
                     <View style={styles.modalContainer}>
                         <FlatList
                             data={options}
+                            keyExtractor={item => item.value}
                             renderItem={({ item }) => (
-                                <TouchableOpacity style={styles.option} onPress={() => handleSelect(item)}>
+                                <TouchableOpacity
+                                    style={styles.option}
+                                    onPress={() => handleSelect(item)}
+                                >
                                     <Text style={styles.optionText}>{item.label}</Text>
                                 </TouchableOpacity>
                             )}
-                            keyExtractor={(item) => item.value}
                         />
                         <TouchableOpacity
                             onPress={() => setModalVisible(false)}
@@ -54,6 +80,11 @@ const ModalSelect: React.FC<ModalSelectProps> = ({ label, options, value, onValu
 };
 
 const styles = StyleSheet.create({
+    label: {
+        marginBottom: 5,
+        fontWeight: 'bold',
+        fontSize: 14,
+    },
     inputContainer: {
         padding: 10,
         backgroundColor: '#d5d0d0',
@@ -67,7 +98,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContainer: {
         width: '80%',
@@ -76,7 +107,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     option: {
-        paddingVertical: 10,
+        paddingVertical: 12,
     },
     optionText: {
         fontSize: 16,
@@ -85,12 +116,13 @@ const styles = StyleSheet.create({
     closeButton: {
         marginTop: 20,
         backgroundColor: '#007BFF',
-        paddingVertical: 10,
+        paddingVertical: 12,
         borderRadius: 8,
     },
     closeButtonText: {
         color: '#fff',
         textAlign: 'center',
+        fontSize: 16,
     },
 });
 

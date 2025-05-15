@@ -1,23 +1,20 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeNutricionista from '../screens/HomeNutricionista'; // tu Home para nutricionistas
+import HomeNutricionista from '../screens/NutritionistScreens/HomeNutricionista';
+import DataScreen from "../screens/NutritionistScreens/DataScreen";
 
 export type NutritionistStackParamList = {
     NutritionistHome: undefined;
-    // aquí puedes añadir más pantallas de nutricionista:
-    // PatientsList: undefined;
-    // PatientDetail: { id: number };
+    Profile: undefined;
+    Setup: undefined;
 };
 
 const Stack = createNativeStackNavigator<NutritionistStackParamList>();
 
 const NutritionistNavigator = () => (
     <Stack.Navigator screenOptions={{ headerShown: true }}>
-        <Stack.Screen
-            name="NutritionistHome"
-            component={HomeNutricionista}
-            options={{ title: 'Inicio Nutricionista' }}
-        />
+        <Stack.Screen name="NutritionistHome" component={HomeNutricionista} options={{ title: 'Inicio Nutricionista' }}/>
+        <Stack.Screen name={"Profile"} component={DataScreen}/>
     </Stack.Navigator>
 );
 

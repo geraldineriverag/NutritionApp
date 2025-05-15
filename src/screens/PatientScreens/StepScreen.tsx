@@ -1,13 +1,13 @@
 // src/screens/StepScreen.tsx
 import { useEffect, useState } from 'react';
 import { Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import Input from '../components/Input';
-import ButtonApp from '../components/ButtonApp';
-import globalStyles from '../styles/globalStyles';
-import { useWizardForm } from '../context/WizardFormContext';
+import Input from '../../components/Input';
+import ButtonApp from '../../components/ButtonApp';
+import globalStyles from '../../styles/globalStyles';
+import { useWizardForm } from '../../context/WizardFormContext';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import {fetchFields, fetchSubmittedData, postFormData} from "../services/WizardService";
-import {AppStackParamList} from "../navigation/AppNavigator";
+import {fetchFields, fetchSubmittedData, postFormData} from "../../services/WizardService";
+import {AppStackParamList} from "../../navigation/PatientNavigator";
 
 type StepScreenProps = NativeStackScreenProps<AppStackParamList, 'Step'>;
 
