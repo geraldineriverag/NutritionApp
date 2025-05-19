@@ -25,7 +25,7 @@ const FloatingMenu = () => {
 
             <TouchableOpacity
                 style={menuStyles.button}
-                onPress={() => navigation.navigate('Patients' as never)}
+                onPress={() => navigation.navigate('Invitation' as never)}
             >
                 <Feather name="users" size={24} color="#fff" />
             </TouchableOpacity>

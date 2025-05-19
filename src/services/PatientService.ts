@@ -1,24 +1,21 @@
+// src/services/PatientService.ts
+
 import apiClient from './apiClient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PATIENT_ID_KEY = 'patient_id';
 
+/** Cache del ID de “mi” paciente  **/
+
 export const getPatientId = async (): Promise<number> => {
     try {
-        // Intentar leer el patient_id de AsyncStorage
-        const cachedPatientId = await AsyncStorage.getItem(PATIENT_ID_KEY);
-
-        if (cachedPatientId) {
-            return parseInt(cachedPatientId, 10); // 👈 Ya lo tenemos
+        const cached = await AsyncStorage.getItem(PATIENT_ID_KEY);
+        if (cached) {
+            return parseInt(cached, 10);
         }
-
-        // Si no está cacheado, pedirlo al backend
-        const response = await apiClient.get('/patients/me/');
-        const patientId = response.data.id;
-
-        // Guardarlo en AsyncStorage para próximas veces
+        const { data } = await apiClient.get<{ id: number }>('/patients/me/');
+        const patientId = data.id;
         await AsyncStorage.setItem(PATIENT_ID_KEY, patientId.toString());
-
         return patientId;
     } catch (error) {
         console.error('Error al obtener el ID del paciente:', error);
@@ -26,7 +23,23 @@ export const getPatientId = async (): Promise<number> => {
     }
 };
 
-// Limpiar el cache al logout
 export const clearPatientId = async () => {
     await AsyncStorage.removeItem(PATIENT_ID_KEY);
+};
+
+/** Listado de pacientes (para nutricionistas) **/
+
+export interface Patient {
+    id: number;
+    user: {
+        first_name: string;
+        last_name: string;
+        email: string;
+    };
+    // agrega aquí otros campos que exponga tu PatientSerializer
+}
+
+export const getMyPatients = async (): Promise<Patient[]> => {
+    const { data } = await apiClient.get<Patient[]>('/patients/');
+    return data;
 };
