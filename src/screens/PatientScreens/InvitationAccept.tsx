@@ -1,8 +1,6 @@
 // src/screens/AcceptInvitationScreen.tsx
 import React, { useState } from 'react';
-import {
-    View, Text, TextInput, Alert, ActivityIndicator, KeyboardAvoidingView, Platform
-} from 'react-native';
+import { Text, TextInput, Alert, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import ButtonApp from "../../components/ButtonApp";
 import globalStyles from "../../styles/globalStyles";
 import { acceptInvitation} from "../../services/InvitationService";
