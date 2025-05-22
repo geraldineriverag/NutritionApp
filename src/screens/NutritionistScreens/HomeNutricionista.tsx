@@ -22,7 +22,11 @@ const HomeNutricionista = () => {
             />
             <ButtonApp
                 title="Mis Pacientes"
-                onPress={() => navigation.navigate('MyPatients')}
+                onPress={() => navigation.navigate('Patients')}
+            />
+            <ButtonApp
+                title="Mis Citas"
+                onPress={() => navigation.navigate('Appointments')}
             />
             <ButtonApp
                 title="Cerrar sesión"

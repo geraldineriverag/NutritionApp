@@ -1,6 +1,7 @@
 import apiClient from './apiClient';
 
 export interface NutritionistProfile {
+    id: number
     bio: string;
     education: string;
     specialties: string;

@@ -8,6 +8,7 @@ import ProgressScreen from "../screens/PatientScreens/ProgressScreen";
 import ProfileScreen from "../screens/PatientScreens/ProfileScreen";
 import ProgressDetailScreen from "../screens/PatientScreens/ProgressDetailScreen";
 import InvitationAccept from "../screens/PatientScreens/InvitationAccept";
+import PatientPlanScreen from "../screens/PatientScreens/PatientPlanScreen";
 
 export type AppStackParamList = {
     Home: undefined;
@@ -25,6 +26,7 @@ export type AppStackParamList = {
     ProgressDetail: undefined;
     Profile: undefined;
     Invitation: undefined;
+    Plan: undefined
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -45,6 +47,8 @@ const PatientNavigator = () => {
             <Stack.Screen name={"Profile"} component={ProfileScreen}/>
             <Stack.Screen name={"ProgressDetail"} component={ProgressDetailScreen}/>
             <Stack.Screen name={"Invitation"} component={InvitationAccept}/>
+            <Stack.Screen name={"Plan"} component={PatientPlanScreen}/>
+
         </Stack.Navigator>
     );
 };

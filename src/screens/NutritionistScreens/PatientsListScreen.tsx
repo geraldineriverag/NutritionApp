@@ -1,5 +1,3 @@
-// src/screens/NutritionistScreens/PatientsScreen.tsx
-
 import React, { useEffect, useState } from 'react';
 import {
     View,
@@ -20,7 +18,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NutritionistStackParamList } from '../../navigation/NutritionistNavigator';
 import {createInvitation, Invitation} from "../../services/InvitationService";
 
-type Props = NativeStackScreenProps<NutritionistStackParamList, 'MyPatients'>;
+type Props = NativeStackScreenProps<NutritionistStackParamList, 'Patients'>;
 
 const PatientsScreen: React.FC<Props> = ({ navigation }) => {
     const [patients, setPatients] = useState<Patient[]>([]);
@@ -61,6 +59,10 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
         }
     };
 
+    const handleCardPress = (p: Patient) => {
+        navigation.navigate('PatientDetail', { id: p.id });
+    };
+
     if (loading) {
         return (
             <View style={[globalStyles.container, cardStyles.centered]}>
@@ -85,12 +87,14 @@ const PatientsScreen: React.FC<Props> = ({ navigation }) => {
                     data={patients}
                     keyExtractor={p => p.id.toString()}
                     renderItem={({ item }) => (
-                        <View style={cardStyles.card}>
-                            <Text style={cardStyles.cardTitle}>
-                                {item.user.first_name} {item.user.last_name}
-                            </Text>
-                            <Text style={cardStyles.cardValue}>{item.user.email}</Text>
-                        </View>
+                        <TouchableOpacity onPress={() => handleCardPress(item)}>
+                            <View style={cardStyles.card}>
+                                <Text style={cardStyles.cardTitle}>
+                                    {item.user.first_name} {item.user.last_name}
+                                </Text>
+                                <Text style={cardStyles.cardValue}>{item.user.email}</Text>
+                            </View>
+                        </TouchableOpacity>
                     )}
                 />
             )}

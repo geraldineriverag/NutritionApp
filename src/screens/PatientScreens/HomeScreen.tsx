@@ -102,7 +102,7 @@ const HomeScreen = ({ navigation }: any) => {
                             subtitle1="29 Nov. 08:00"
                             subtitle2="Sala B1"
                             backgroundColor={colors.secondary}
-                            onPress={() => console.log('Ir a Comidas')}
+                            onPress={() => navigation.navigate('Plan')}
                         />
                         <PlanCard
                             level="Plan"
