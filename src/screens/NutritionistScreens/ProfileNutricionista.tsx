@@ -195,7 +195,6 @@ const NutritionistProfileScreen: React.FC = () => {
                 </View>
             </Modal>
 
-            <FloatingMenu />
         </View>
     );
 };

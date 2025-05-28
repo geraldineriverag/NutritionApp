@@ -9,6 +9,7 @@ import ProfileScreen from "../screens/PatientScreens/ProfileScreen";
 import ProgressDetailScreen from "../screens/PatientScreens/ProgressDetailScreen";
 import InvitationAccept from "../screens/PatientScreens/InvitationAccept";
 import PatientPlanScreen from "../screens/PatientScreens/PatientPlanScreen";
+import NutritionistProfileScreen from "../screens/PatientScreens/NutritionistProfile";
 
 export type AppStackParamList = {
     Home: undefined;
@@ -27,6 +28,7 @@ export type AppStackParamList = {
     Profile: undefined;
     Invitation: undefined;
     Plan: undefined
+    NutritionistProfile: { id: number };
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -35,11 +37,9 @@ const PatientNavigator = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen
-                name="Step"
-                component={StepScreen}
-                options={({ route }) => ({
-                    title: route.params?.title || 'Formulario' // Usamos el título del paso o 'Paso' como fallback
+            <Stack.Screen name="Step" component={StepScreen} options={({ route }) =>
+                ({
+                title: route.params?.title || 'Formulario' // Usamos el título del paso o 'Paso' como fallback
                 })}
             />
             <Stack.Screen name={"Success"} component={SuccessScreen}/>
@@ -48,6 +48,7 @@ const PatientNavigator = () => {
             <Stack.Screen name={"ProgressDetail"} component={ProgressDetailScreen}/>
             <Stack.Screen name={"Invitation"} component={InvitationAccept}/>
             <Stack.Screen name={"Plan"} component={PatientPlanScreen}/>
+            <Stack.Screen name={"NutritionistProfile"} component={NutritionistProfileScreen}/>
 
         </Stack.Navigator>
     );

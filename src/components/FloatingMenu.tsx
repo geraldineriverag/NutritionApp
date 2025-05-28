@@ -27,14 +27,14 @@ const FloatingMenu = () => {
                 style={menuStyles.button}
                 onPress={() => navigation.navigate('Invitation' as never)}
             >
-                <Feather name="users" size={24} color="#fff" />
+                <Feather name="user-check" size={24} color="#fff" />
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={menuStyles.button}
                 onPress={() => navigation.navigate('Settings' as never)}
             >
-                <Feather name="settings" size={24} color="#fff" />
+                <Feather name="clipboard" size={24} color="#fff" />
             </TouchableOpacity>
         </View>
     );

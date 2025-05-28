@@ -2,6 +2,11 @@ import apiClient from './apiClient';
 
 export interface NutritionistProfile {
     id: number
+    user: {
+        first_name: string;
+        last_name: string;
+        email: string;
+    };
     bio: string;
     education: string;
     specialties: string;
@@ -14,22 +19,27 @@ export interface NutritionistProfile {
 }
 
 export const getNutritionistProfile = async (): Promise<NutritionistProfile> => {
-    const { data } = await apiClient.get('/nutritionists/me/');
+    const { data } = await apiClient.get<NutritionistProfile>('/nutritionists/me/');
     return data;
 };
 
-/** PATCH */
-export const updateNutritionistProfile = async (
-    data: Partial<NutritionistProfile>
-): Promise<NutritionistProfile> => {
-    const { data: updated } = await apiClient.patch('/nutritionists/me/', data);
-    return updated;
+// GET /nutritionists/{id}/
+export const getNutritionistById = async (id: number): Promise<NutritionistProfile> => {
+    const { data } = await apiClient.get<NutritionistProfile>(`/nutritionists/${id}/`);
+    return data;
 };
 
-/** POST */
-export const createNutritionistProfile = async (
-    data: Partial<NutritionistProfile>
+// PATCH y POST igual, pero devolviendo NutritionistProfile
+export const updateNutritionistProfile = async (
+    payload: Partial<Omit<NutritionistProfile, 'user' | 'id'>>
 ): Promise<NutritionistProfile> => {
-    const { data: created } = await apiClient.post('/nutritionists/me/', data);
-    return created;
+    const { data } = await apiClient.patch<NutritionistProfile>('/nutritionists/me/', payload);
+    return data;
+};
+
+export const createNutritionistProfile = async (
+    payload: Partial<Omit<NutritionistProfile, 'user' | 'id'>>
+): Promise<NutritionistProfile> => {
+    const { data } = await apiClient.post<NutritionistProfile>('/nutritionists/me/', payload);
+    return data;
 };

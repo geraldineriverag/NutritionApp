@@ -1,17 +1,47 @@
-// src/screens/AcceptInvitationScreen.tsx
-import React, { useState } from 'react';
-import { Text, TextInput, Alert, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
-import ButtonApp from "../../components/ButtonApp";
-import globalStyles from "../../styles/globalStyles";
-import { acceptInvitation} from "../../services/InvitationService";
+import React, { useEffect, useState } from 'react';
+import {
+    View,
+    Text,
+    TextInput,
+    Alert,
+    ActivityIndicator,
+    KeyboardAvoidingView,
+    Platform,
+} from 'react-native';
+import ButtonApp from '../../components/ButtonApp';
+import globalStyles from '../../styles/globalStyles';
+import { acceptInvitation, Invitation } from '../../services/InvitationService';
+import {getMyPatientProfile} from '../../services/PatientService';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import {AppStackParamList} from "../../navigation/PatientNavigator";
+import { AppStackParamList } from '../../navigation/PatientNavigator';
 
 type Props = NativeStackScreenProps<AppStackParamList, 'Invitation'>;
 
 const AcceptInvitationScreen: React.FC<Props> = ({ navigation }) => {
     const [token, setToken] = useState('');
     const [loading, setLoading] = useState(false);
+    const [initialLoading, setInitialLoading] = useState(true);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const me = await getMyPatientProfile();
+                // Si ya tiene nutricionista, vamos directo al perfil
+                if (me.nutritionist_id) {
+                    navigation.replace('NutritionistProfile', { id: me.nutritionist_id });
+                    return;
+                }
+            } catch (err) {
+                console.error(err);
+                Alert.alert(
+                    'Error',
+                    'No pudimos comprobar tu nutricionista. Intenta de nuevo más tarde.'
+                );
+            } finally {
+                setInitialLoading(false);
+            }
+        })();
+    }, [navigation]);
 
     const handleAccept = async () => {
         if (!token.trim()) {
@@ -19,9 +49,15 @@ const AcceptInvitationScreen: React.FC<Props> = ({ navigation }) => {
         }
         setLoading(true);
         try {
-            await acceptInvitation(token.trim());
-            Alert.alert('Éxito', '¡Invitación aceptada!', [
-                { text: 'OK', onPress: () => navigation.replace('Home') }
+            const result: Invitation = await acceptInvitation(token.trim());
+            Alert.alert('¡Éxito!', 'Invitación aceptada.', [
+                {
+                    text: 'Ver perfil',
+                    onPress: () =>
+                        navigation.replace('NutritionistProfile', {
+                            id: result.nutritionist,
+                        }),
+                },
             ]);
         } catch (e: any) {
             console.error(e.response?.data || e);
@@ -30,6 +66,14 @@ const AcceptInvitationScreen: React.FC<Props> = ({ navigation }) => {
             setLoading(false);
         }
     };
+
+    if (initialLoading) {
+        return (
+            <View style={[globalStyles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+                <ActivityIndicator size="large" />
+            </View>
+        );
+    }
 
     return (
         <KeyboardAvoidingView
@@ -47,10 +91,11 @@ const AcceptInvitationScreen: React.FC<Props> = ({ navigation }) => {
                 onChangeText={setToken}
                 autoCapitalize="none"
             />
-            {loading
-                ? <ActivityIndicator size="large" />
-                : <ButtonApp title="Aceptar" onPress={handleAccept} />
-            }
+            {loading ? (
+                <ActivityIndicator size="large" />
+            ) : (
+                <ButtonApp title="Aceptar" onPress={handleAccept} />
+            )}
         </KeyboardAvoidingView>
     );
 };

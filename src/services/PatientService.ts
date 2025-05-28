@@ -1,4 +1,3 @@
-// src/services/PatientService.ts
 import apiClient from './apiClient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -33,7 +32,6 @@ export interface Patient {
         last_name: string;
         email: string;
     };
-    // añade aquí los campos extra que tu PatientSerializer expose si los necesitas
 }
 
 export const getMyPatients = async (): Promise<Patient[]> => {
@@ -48,7 +46,6 @@ export interface PatientProfile {
         first_name: string;
         last_name: string;
         email: string;
-        // puedes añadir aquí más campos de user si tu serializer los devuelve
     };
     height: number;
     current_weight: number;
@@ -83,5 +80,17 @@ export const getPatientProfile = async (
     id: number
 ): Promise<PatientProfile> => {
     const { data } = await apiClient.get<PatientProfile>(`/patients/${id}/`);
+    return data;
+};
+
+export interface PatientOwnProfile {
+    id: number;
+    user: { first_name: string; last_name: string; email: string };
+    nutritionist_id: number | null;
+}
+
+/** Perfil del paciente autenticado */
+export const getMyPatientProfile = async (): Promise<PatientOwnProfile> => {
+    const { data } = await apiClient.get<PatientOwnProfile>('/patients/me/');
     return data;
 };
