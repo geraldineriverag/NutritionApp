@@ -12,7 +12,6 @@ import {
 import globalStyles from '../../styles/globalStyles';
 import cardStyles from '../../styles/cardStyles';
 import ButtonApp from '../../components/ButtonApp';
-import FloatingMenu from '../../components/FloatingMenu';
 import Feather from 'react-native-vector-icons/Feather';
 import colors from '../../styles/colors';
 import ModalSelect from "../../components/ModalSelector";

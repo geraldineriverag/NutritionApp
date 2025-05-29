@@ -1,4 +1,4 @@
-import apiClient from './apiClient'; // Asegúrate de tener este path correcto
+import apiClient from './apiClient';
 
 interface ProgressData {
     patient: number;
@@ -28,7 +28,7 @@ export const fetchProgressData = async (startDate?: string, endDate?: string) =>
     return response.data;
 };
 
-// Registrar un nuevo progreso (puedes pasar los campos que necesites)
+// Registrar un nuevo progreso
 export const registerProgress = async (data: ProgressData) => {
     try {
         const response = await apiClient.post('/progress/', data);

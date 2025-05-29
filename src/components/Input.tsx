@@ -10,7 +10,7 @@ type Props = {
     secureTextEntry?: boolean;
     keyboardType?: TextInputProps['keyboardType'];
     placeholder?: string;
-    editable?: boolean; // <-- NUEVA PROP
+    editable?: boolean;
 };
 
 const Input: React.FC<Props> = ({

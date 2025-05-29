@@ -1,4 +1,3 @@
-// src/navigation/PatientNavigator.tsx
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/PatientScreens/HomeScreen';
@@ -39,7 +38,7 @@ const PatientNavigator = () => {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Step" component={StepScreen} options={({ route }) =>
                 ({
-                title: route.params?.title || 'Formulario' // Usamos el título del paso o 'Paso' como fallback
+                title: route.params?.title || 'Formulario'
                 })}
             />
             <Stack.Screen name={"Success"} component={SuccessScreen}/>

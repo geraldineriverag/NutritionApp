@@ -1,4 +1,3 @@
-// src/screens/NewAppointmentScreen.tsx
 import React, {useState} from 'react';
 import { View, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';

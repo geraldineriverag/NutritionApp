@@ -24,7 +24,7 @@ const DaySelector: React.FC<Props> = ({ selectedDay, onSelect }) => {
         return dates;
     };
 
-    const dates = generateDates(); // ahora tenemos la fecha real de cada día de la semana
+    const dates = generateDates();
 
     return (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.daysContainer}>

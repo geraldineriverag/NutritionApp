@@ -1,4 +1,3 @@
-// src/screens/NutritionistScreens/UploadPlanScreen.tsx
 import React, { useState } from 'react';
 import {
     View,

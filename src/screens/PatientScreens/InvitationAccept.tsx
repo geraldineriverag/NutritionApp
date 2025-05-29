@@ -26,7 +26,6 @@ const AcceptInvitationScreen: React.FC<Props> = ({ navigation }) => {
         (async () => {
             try {
                 const me = await getMyPatientProfile();
-                // Si ya tiene nutricionista, vamos directo al perfil
                 if (me.nutritionist_id) {
                     navigation.replace('NutritionistProfile', { id: me.nutritionist_id });
                     return;

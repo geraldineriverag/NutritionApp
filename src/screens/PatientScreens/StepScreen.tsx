@@ -1,4 +1,3 @@
-// src/screens/StepScreen.tsx
 import { useEffect, useState } from 'react';
 import { Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import Input from '../../components/Input';

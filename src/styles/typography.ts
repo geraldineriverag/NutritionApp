@@ -1,4 +1,3 @@
-// src/styles/typography.ts
 export const typography = {
     heading: {
         fontSize: 24,

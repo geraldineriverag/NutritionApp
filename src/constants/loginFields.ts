@@ -1,4 +1,3 @@
-// constants/loginFields.ts
 export const loginFields = [
     {
         key: 'username',

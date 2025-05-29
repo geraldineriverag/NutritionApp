@@ -21,6 +21,6 @@ export const useProgressData = () => {
         progressData,
         loading,
         loadProgressData,
-        setProgressData, // opcional, si necesitas hacer reset o actualizaciones manuales
+        setProgressData,
     };
 };
