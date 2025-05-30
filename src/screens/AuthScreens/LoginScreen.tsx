@@ -1,16 +1,13 @@
-// LoginScreen.tsx
 import React, { useState } from 'react';
 import { Text, Alert, KeyboardAvoidingView, Platform } from 'react-native';
-import Input from "../components/Input";
-import ButtonApp from "../components/ButtonApp";
-import globalStyles from "../styles/globalStyles";
-import axios from 'axios';
-import { loginFields } from "../constants/loginFields";
-import { useAuth } from '../context/AuthContext';
+import Input from "../../components/Input";
+import ButtonApp from "../../components/ButtonApp";
+import globalStyles from "../../styles/globalStyles";
+import { loginFields } from "../../constants/loginFields";
+import { useAuth } from '../../context/AuthContext';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/AuthNavigator';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {wizardSteps} from "../constants/wizardSteps"; // Asegúrate de importar RootStackParamList
+import { RootStackParamList } from '../../navigation/AuthNavigator';
+import {loginRequest} from "../../services/AuthService";
 
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -24,28 +21,16 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
     const handleLogin = async () => {
         try {
-            const { data } = await axios.post('http://127.0.0.1:8000/api/accounts/token/', {
-                username: form.username,
-                password: form.password,
-            });
-
-            console.log("Token recibido:", data);
-            await login(data.access, data.refresh);
-            AsyncStorage.setItem('token', data.access);
-        } catch (error: any) {
-            Alert.alert("Error", "Credenciales inválidas o problema de conexión.");
-            console.error(error.response?.data || error.message);
+            const { access, refresh, role } = await loginRequest(form.username, form.password);
+            await login(access, refresh, role);
+        } catch (e: any) {
+            Alert.alert('Error', e.message);
         }
     };
 
+
     const handleRegisterNavigation = () => {
-        // Navegar al primer paso del wizard con sus campos correspondientes
-        const initialStep = 0;
-        /*  navigation.navigate('Step', {
-            title: wizardSteps[initialStep].title,
-            fields: wizardSteps[initialStep].fields,
-            stepIndex: initialStep,
-        }); */
+        navigation.navigate('SignUp')
     };
 
     return (
@@ -66,7 +51,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             ))}
 
             <ButtonApp title="Iniciar Sesión" onPress={handleLogin} />
-/*
+
             <Text style={globalStyles.link} onPress={handleRegisterNavigation}>
                 ¿No tienes cuenta? Regístrate
             </Text>

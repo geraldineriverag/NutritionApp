@@ -1,4 +1,3 @@
-// App.tsx
 import React from 'react';
 import { View, Text } from 'react-native';
 import useCustomFonts from './src/hooks/useCustomFonts';

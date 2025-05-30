@@ -1,30 +1,34 @@
-import axios from 'axios';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import apiClient from './apiClient';
 
 export const fetchFields = async () => {
     try {
-        const response = await fetch("http://localhost:8000/api/patients/form-schema/");
-
-        if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error("Error al obtener los campos del wizard:", error);
-        throw error; // Re-lanzamos el error para que quien lo consuma pueda manejarlo
+        const { data } = await apiClient.get('/patients/form-schema/');
+        return data;
+    } catch (error: any) {
+        console.error("Error al obtener los campos del wizard:", error.response?.data || error.message);
+        throw error;
     }
 };
 
 export const postFormData = async (data: Record<string, any>) => {
-    const token = await AsyncStorage.getItem('token');
-
-    const response = await axios.post('http://localhost:8000/api/patients/register/', data, {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-        },
-    });
-
-    return response.data; // aquí ya tienes la respuesta del backend
+    try {
+        const response = await apiClient.post('/patients/register/', data);
+        return response.data;
+    } catch (error: any) {
+        console.error("Error al enviar los datos:", error.response?.data || error.message);
+        throw error;
+    }
 };
+
+export const fetchSubmittedData = async () => {
+    const { data } = await apiClient.get('/patients/me/');
+    return data;
+};
+
+export const updateWizardField = async (field: string, value: string) => {
+    const data = { [field]: value };
+    const response = await apiClient.patch('/patients/me/', data); // Asegúrate de tener este endpoint en tu backend
+    return response.data;
+};
+
+
